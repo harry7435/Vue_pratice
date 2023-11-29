@@ -14,8 +14,20 @@ export default {
         }
     },
     actions: {
-        createWorkspace() {
-
+        async createWorkspace({dispatch}, payload = {}) {
+            const { parentId } = payload
+            await fetch('https://kdt-frontend.programmers.co.kr/documents/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-username': 'leon'
+                },
+                body: JSON.stringify({
+                    title: '',
+                    parent: parentId
+                })
+            }).then(res => res.json())
+            await dispatch('readWorkspaces')
         },
         async readWorkspaces({ commit }) {
             const workspaces = await fetch('https://kdt-frontend.programmers.co.kr/documents/', {
@@ -25,7 +37,6 @@ export default {
                     'x-username': 'leon'
                 }
             }).then(res => res.json())
-            console.log(workspaces)
             commit('assignState',{
                 workspaces
             })
@@ -36,8 +47,16 @@ export default {
         updateWorkspace() {
 
         },
-        deleteWorkspace() {
-
+        async deleteWorkspace({dispatch}, payload) {
+            const { id } = payload
+            await fetch(`https://kdt-frontend.programmers.co.kr/documents/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-username': 'leon'
+                }
+            }).then(res => res.json())
+            dispatch('readWorkspaces')
         }
     }
 }
