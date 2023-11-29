@@ -1,7 +1,7 @@
-const path = require('path');
-const { VueLoaderPlugin } = require('vue-loader');
-const HtmlPlugin = require('html-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+const path = require('path')
+const { VueLoaderPlugin } = require('vue-loader')
+const HtmlPlugin = require('html-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   resolve: {
@@ -13,6 +13,7 @@ module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
     clean: true,
   },
   module: {
@@ -40,4 +41,7 @@ module.exports = {
       ],
     }),
   ],
-};
+  devServer: {
+    historyApiFallback: true
+  }
+}
