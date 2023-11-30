@@ -3,3 +3,7 @@ dist/
 .vscode/
 .idea
 .DS_Store
+.env
+
+# Local Netlify folder
+.netlify
